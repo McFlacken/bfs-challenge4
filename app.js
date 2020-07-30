@@ -24,7 +24,14 @@ var catSchema = new mongoose.Schema({
 	value: Number
 });
 
+var voteSchema = new mongoose.Schema({
+	value: Number
+	
+});
+
 var Cat = mongoose.model("Cat", catSchema);
+
+var Vote = mongoose.model("Vote", voteSchema);
 
 // Cat.create({
 // 	url: "https://cdn2.thecatapi.com/images/ahk.jpg",
@@ -39,24 +46,36 @@ var Cat = mongoose.model("Cat", catSchema);
 // 		}
 // });
 
+//GET ROUTES - default and /cats
 
 app.get("/", function(req,res){
 	res.redirect("cats");
 });
 
 app.get("/cats", function(req, res){
-
 	Cat.countDocuments().exec(function(err, count){
 		var random = Math.floor(Math.random() * count);
 		Cat.findOne().skip(random).exec(
 			function (err, result) {
-		// result is random 
 			res.render("cats", {randomCat: result})
 	});
   });
-	
 });
 
+//GET ROUTE - CHECK OUT THE VOTES
+
+app.get("/votes", function(req, res){
+	res.render("votes");
+})
+
+//POST ROUTE - ADD VOTES
+
+// app.post("/addvote", function(req, res){
+
+// 	res.redirect("votes")
+// })
+
+
 app.listen(process.env.PORT || 3000, function(){
-	console.log('In cloud far away... The Cat App has now started...');
+	console.log('In a cloud far away... The Cat App has now started...');
 });

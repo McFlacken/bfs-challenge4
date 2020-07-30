@@ -4,13 +4,12 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Random cat page</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <script src="https://kit.fontawesome.com/5a7b06498c.js" crossorigin="anonymous"></script>
-        
-   
+        <script src="https://kit.fontawesome.com/5a7b06498c.js" crossorigin="anonymous" SameSite="None"></script>
     </head>
+
     <body>
         <nav class="navbar navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="/">
                 <h1><i class="fas fa-cat"></i> Random cat page</h1>
             </a>
             <span class="navbar-text">
@@ -27,12 +26,22 @@
               <div class="col"></div>
               <div class="col-6 container-fluid">
                 <div class="card text-center">
-                  <div id="gato"><img class="card-img-top mt-5" src="<%= randomCat.url %>" style="width:auto; height:250px;"></div>
+                  <div id="gato"><img class="card-img-top mt-5 mb-4" src="<%= randomCat.url %>" style="width:auto; height:250px;"></div>
                   <div class="card-body">
-                  <h5 class="card-title text-center">I would not pet this beast!</h5>
                     <div class="buttons text-center">
                         <a href="/cats" class="btn btn-danger">See another ugly cat</a>
+                        <a href="/votes" class="btn btn-success">Check out the votes!</a>
                     </div>
+
+                    <div class="voting-buttons text-center mt-3 row">
+                      <form class="col" action="/addvote" method="POST">
+                        <button id="ugly" class="btn btn-lg btn-warning" name="newuglyvote" value="UglyVote">Vote as UGLY</button>
+                      </form>
+                      <form class="col" action="/addvote" method="POST">
+                        <button id="uglier" class="btn btn-lg btn-warning name="newugliervote" value="UglierVote">Vote as UGLIER</button>
+                      </form>
+                    </div>
+
                   </div>
                 </div>
               </div>
