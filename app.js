@@ -9,7 +9,8 @@ var express 			= require("express"),
 mongoose.connect("mongodb+srv://mackie:%238u1LtfR0m%24@cluster0.sz6gu.mongodb.net/uglycats?retryWrites=true&w=majority", {
 	useNewUrlParser: true,
 	useCreateIndex: true,
-	useUnifiedTopology: true
+	useUnifiedTopology: true,
+	useFindAndModify: false
 }).then(() => {
 	console.log('Somewhere in the cloud... connected to DB!.... ready to serve some cats');
 }).catch(err => {
@@ -68,8 +69,16 @@ app.get("/votes", function(req, res){
 
 //PATCH ROUTE - ADD VOTES - this is where I'm stuck...
 
-app.patch("/cats/ugly", function(req, res){
-	res.send("you are trying to vote for ugly")
+app.patch("/cats/ugly/:id", function(req, res){
+	console.log(req.params); //I can see this is the id of the image I am currently serving and whose value I want to change
+	//should I set an object body with value = 1 here?
+	Cat.findByIdAndUpdate(req.params, /*whatever new value I want to pass goes here */, function(err, updatedCat){
+		if(err) {
+			console.log(err);
+		} else {
+			res.redirect("cats");
+		}
+	});
 })
 
 app.patch("/cats/uglier", function(req, res){

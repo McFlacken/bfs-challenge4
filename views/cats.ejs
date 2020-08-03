@@ -34,8 +34,8 @@
                     </div>
 
                     <div class="voting-buttons text-center mt-3 row">
-                      <form class="col" action="/cats/ugly?_method=PATCH" method="POST">
-                        <button id="ugly" class="btn btn-lg btn-warning" name="Uglyvote" value="ugly">Vote as UGLY</button>
+                      <form class="col" action="/cats/ugly/<%=randomCat._id%>?_method=PATCH" method="POST">
+                        <button id="ugly" class="btn btn-lg btn-warning" name="value" value=1>Vote as UGLY</button>
                       </form>
                       <form class="col" action="/cats/uglier?_method=PATCH" method="POST">
                         <button id="uglier" class="btn btn-lg btn-warning" name="newugliervote" value="UglierVote">Vote as UGLIER</button>
