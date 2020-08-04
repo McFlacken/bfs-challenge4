@@ -17,12 +17,39 @@
             </span>
           </nav>
 
-<h1>This is the votes page</h1>
+<div class="container">
+    <h3>This is the votes page, take a look at the results</h3>
+</div>
 
+<div class="uglies container">
+    <h5>Voted as UGLY</h5>
+        <div class="row text-center" style="display: flex; flex-wrap: wrap;">
+            <% uglies.forEach(function(ugly){ %>
+                <div class="col">
+                    <div class="card text-center">
+                        <div><img class="card-img-top mt-5 mb-4" src="<%= ugly.url %>" style="width:auto; height:100px;"></div>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+</div>
 
+<div class="ugliers container">
+    <h5>Voted as UGLIER</h5>
+        <div class="row text-center" style="display: flex; flex-wrap: wrap;">
+            <% ugliers.forEach(function(uglier){ %>
+                <div class="col">
+                    <div class="card text-center">
+                        <div><img class="card-img-top mt-5 mb-4" src="<%= uglier.url %>" style="width:auto; height:100px;"></div>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+</div>
 
-<a href="/cats" class="btn btn-danger">Go back to see more ugly cats</a>
-
+<div class="container mt-4 text-center">
+    <a href="/cats" class="btn btn-danger">Go back to see more ugly cats</a>
+</div>
 
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

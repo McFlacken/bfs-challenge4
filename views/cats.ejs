@@ -37,8 +37,8 @@
                       <form class="col" action="/cats/ugly/<%=randomCat._id%>?_method=PATCH" method="POST">
                         <button id="ugly" class="btn btn-lg btn-warning" name="value" value=1>Vote as UGLY</button>
                       </form>
-                      <form class="col" action="/cats/uglier?_method=PATCH" method="POST">
-                        <button id="uglier" class="btn btn-lg btn-warning" name="newugliervote" value="UglierVote">Vote as UGLIER</button>
+                      <form class="col" action="/cats/uglier/<%=randomCat._id%>?_method=PATCH" method="POST">
+                        <button id="uglier" class="btn btn-lg btn-warning" name="value" value=-1>Vote as UGLIER</button>
                       </form>
                     </div>
 
@@ -48,11 +48,6 @@
               <div class="col"></div>
             </div>
           </div>
-
-
-
-    
-
 
 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

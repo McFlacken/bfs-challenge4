@@ -2,7 +2,6 @@ var express 			= require("express"),
 	methodOverride		= require("method-override"),
 	app 				= express(),
 	bodyParser 			= require("body-parser"),
-	axios				= require("axios"),
 	mongoose 			= require("mongoose");
 
 //CONNECT TO THE DATABASE
@@ -30,9 +29,10 @@ var catSchema = new mongoose.Schema({
 
 var Cat = mongoose.model("Cat", catSchema);
 
-//FUNCTION TO CREATE A CAT, TO SEED THE DATABASE
+// FUNCTION TO CREATE A CAT, TO SEED THE DATABASE
+
 // Cat.create({
-// 	url: "https://cdn2.thecatapi.com/images/ahk.jpg",
+// 	url: "https://cdn2.thecatapi.com/images/aec.jpg",
 // 	value: 0
 // 	}, function(err, cat){
 // 		if(err){
@@ -56,33 +56,45 @@ app.get("/cats", function(req, res){
 		var random = Math.floor(Math.random() * count);
 		Cat.findOne().skip(random).exec(
 			function (err, result) {
-			res.render("cats", {randomCat: result})
-	});
+				res.render("cats", {randomCat: result})
+		});
   });
 });
 
 
 //GET ROUTE - CHECK OUT THE VOTES - in progress......
 app.get("/votes", function(req, res){
-	res.render("votes");
-})
-
-//PATCH ROUTE - ADD VOTES - this is where I'm stuck...
-
-app.patch("/cats/ugly/:id", function(req, res){
-	console.log(req.params); //I can see this is the id of the image I am currently serving and whose value I want to change
-	//should I set an object body with value = 1 here?
-	Cat.findByIdAndUpdate(req.params, /*whatever new value I want to pass goes here */, function(err, updatedCat){
-		if(err) {
+	Cat.find({}, function(err, allUglyCats){
+		if(err){
 			console.log(err);
 		} else {
-			res.redirect("cats");
+			const uglies = allUglyCats.filter(cat => cat.value === 1);
+			const ugliers = allUglyCats.filter(cat => cat.value === -1);
+			res.render("votes", {uglies, ugliers});			
 		}
 	});
 })
 
-app.patch("/cats/uglier", function(req, res){
-	res.send("you are trying to vote for uglier")
+//PATCH ROUTE - ADD VOTES - this is where votes are added
+
+app.patch("/cats/ugly/:id", function(req, res){
+	Cat.findByIdAndUpdate(req.params.id, {value: 1} , {new: true}, function(err, updatedCat){
+		if(err) {
+			console.log(err);
+		} else {
+			res.redirect("/cats");
+		}
+	});
+})
+
+app.patch("/cats/uglier/:id", function(req, res){
+	Cat.findByIdAndUpdate(req.params.id, {value: -1} , {new: true}, function(err, updatedCat){
+		if(err) {
+			console.log(err);
+		} else {
+			res.redirect("/cats");
+		}
+	});
 })
 
 
